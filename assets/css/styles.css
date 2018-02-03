@@ -1,0 +1,25 @@
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgb(12, 12, 12);
+	font-family: 'Roboto', sans-serif;
+}
+#reactive-grid-wrapper
+{
+	position: fixed;
+	z-index: -1;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+#p5_loading
+{
+	color: rgba(255, 255, 255, 0.15);
+	font-size: 2em;
+}
