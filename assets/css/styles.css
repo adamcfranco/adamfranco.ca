@@ -3,16 +3,27 @@ html, body
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	background: rgb(12, 12, 12);
 	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 1.5em;
+	color: white;
+}
+h2
+{
+	font-family: 'Raleway', serif;
+	text-transform: uppercase;
+	font-weight: 200;
+	font-size: 2em;
+}
+p
+{
+	max-width: 50em;
 }
 #reactive-grid-wrapper
 {
-	position: fixed;
-	z-index: -1;
+	position: absolute;
+	z-index: 0;
 	left: 0;
 	top: 0;
 	right: 0;
@@ -22,4 +33,159 @@ html, body
 {
 	color: rgba(255, 255, 255, 0.15);
 	font-size: 2em;
+}
+
+nav 
+{
+	height: 100%;
+	float: left;
+	display: flex;
+	align-items: center;
+	position: relative;
+	z-index: 2;
+	background: radial-gradient(circle at left 50%,  rgb(12, 12, 12) 0%, transparent 25%);
+	width: 128px;
+}
+nav ul
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+nav ul li
+{
+	display: block;
+}
+nav ul li a
+{
+	display: block;
+	border-left: 2px solid transparent;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	color: white;
+	transition: border-color 250ms ease-in-out, background 250ms ease-in-out;
+	cursor: pointer;
+}
+nav ul li a:not(.active):hover
+{
+	border-color: white;
+}
+
+nav ul li a.active
+{
+	border-color: rgb(0, 127, 255);
+	background: rgb(0, 127, 255);
+}
+
+section
+{
+	position: fixed;
+	left: 50px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	transition: left 250ms ease-in-out, opacity 250ms ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 8em;
+	z-index: 0;
+}
+
+section.active
+{
+	left: 0;
+	opacity: 1;
+	z-index: 1;
+}
+
+section#about img
+{
+	border-radius: 100%;
+	margin-right: 4em;
+}
+
+section#contact form
+{
+	display: block;
+	width: calc(100vw - 16em);
+	max-width: 50em;
+}
+section#contact fieldset
+{
+	border: none;
+	margin: 2em 0 0 0;
+	padding: 0;
+	position: relative;
+}
+section#contact label
+{
+	font-size: 1em;
+	color: white;
+	text-transform: uppercase;
+	position: absolute;
+	transition: font-size 100ms linear, color 100ms linear, top 100ms linear, padding 100ms linear;
+	cursor: text;
+	top: 0;
+	padding: 0.5em;
+}
+section#contact input[type="text"]:focus + label,
+section#contact input[type="email"]:focus + label,
+section#contact textarea:focus + label
+{
+	color: rgb(0, 127, 255);
+}
+section#contact input[type="text"]:not([value=""]) + label,
+section#contact input[type="email"]:not([value=""]) + label,
+section#contact textarea:not([value=""]) + label
+{
+	font-size: 0.75em;
+	padding: 0;
+	top: -2em;
+	cursor: default;
+}
+section#contact input[type="text"], section#contact input[type="email"], section#contact textarea
+{
+	display: block;
+	background: rgb(9, 9, 9);
+	border: none;
+	outline: none;
+	color: inherit;
+	font: inherit;
+	line-height: inherit;
+	border-bottom: 2px solid rgb(34, 34, 34);
+	width: 100%;
+	resize: none;
+	padding: 0.5em;
+}
+section#contact input[type="text"]:focus, section#contact input[type="email"]:focus, section#contact textarea:focus
+{
+	border-color: rgb(0, 127, 255);
+}
+section#contact input[type="submit"]
+{
+	display: inline-block;
+	font: inherit;
+	font-size: 1em;
+	color: inherit;
+	text-transform: uppercase;
+	background: rgb(34, 34, 34);
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 0.75em 2em;
+}
+section#contact input[type="submit"]:hover
+{
+	background: rgb(0, 127, 255);
+}
+
+
+@media only screen and (max-width: 800px)
+{
+	section#about img
+	{
+		display: none;
+	}
 }

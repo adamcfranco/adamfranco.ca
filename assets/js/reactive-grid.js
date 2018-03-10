@@ -223,7 +223,7 @@ class Triangle
 	}
 	render()
 	{
-		this.alpha = lerp(this.alpha, this.fill ? 255 : this.startAlpha, 0.15);
+		this.alpha = lerp(this.alpha, this.fill ? 200 : this.startAlpha, 0.15);
 		fill(255, 255, 255, this.alpha);
 		stroke(0, 60);
 		triangle(this.n0.p.x, this.n0.p.y, this.n1.p.x, this.n1.p.y, this.n2.p.x, this.n2.p.y);

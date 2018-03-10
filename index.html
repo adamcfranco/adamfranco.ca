@@ -6,7 +6,7 @@
 		<meta name="description" content="Description">
 		<meta name="author" content="Adam Franco">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Roboto|Raleway:200" rel="stylesheet"> 
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<!--[if lt IE 9]>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -15,7 +15,56 @@
 		<script src="assets/js/reactive-grid.js"></script>
 	</head>
 	<body>
-		<div id="p5_loading">LOADING</div>
-		<div id="reactive-grid-wrapper"></div>
+
+		<section id="work" class="active">
+			<div id="p5_loading">LOADING</div>
+			<div id="reactive-grid-wrapper"></div>
+		</section>
+
+		<section id="about">
+			<img src="assets/img/about.png">
+			<div class="container">
+				<h2>About</h2>
+				<p>My name is Adam Franco. I love to make things. My favorite thing to make is games, so I'm currently pursuing a career in game development as a programmer. Right now I'm a student at NAIT in Edmonton, Alberta, and will be pursuing a B.Sc. in Computer Science at the University of Alberta.</p>
+				<p>Previously I've done work as a graphic designer and web developer.</p>
+				<p>On this website you'll find a collection of the things I've worked on in school, or in my free time.</p>
+				<p>Thank you for visiting!</p>
+			</div>
+		</section>
+
+		<section id="contact">
+			<div class="container">
+				<h2>Contact</h2>
+				<form method="post" action="assets/contact.php" autocomplete="off">
+					<fieldset>
+						<input type="text" name="f_name" id="f_name" required value="" onkeyup="this.setAttribute('value', this.value);">
+						<label for="f_name">Name (first and/or last)</label>
+					</fieldset>
+					<fieldset>
+						<input type="email" name="f_email" id="f_email" required value="" onkeyup="this.setAttribute('value', this.value);">
+						<label for="f_email">Email</label>
+					</fieldset>
+					<fieldset>
+						<textarea name="f_message" id="f_message" rows="10" maxlength="2000" required value="" onkeyup="this.setAttribute('value', this.value);"></textarea>
+						<label for="f_message">Message (<span id="contact_charcount">2000</span> characters remaining)</label>
+					</fieldset>
+					<fieldset>
+						<input type="submit" value="Send Message">
+					</fieldset>
+				</form>
+			</div>
+		</section>
+
+		<nav id="navigation">
+			<ul>
+				<li><a data-section="work" class="active">WORK</a></li>
+				<li><a data-section="about">ABOUT</a></li>
+				<li><a data-section="contact">CONTACT</a></li>
+			</ul>
+		</nav>
+
+		<script src="assets/js/navigation.js"></script>
+		<script src="assets/js/contact.js"></script>
+
 	</body>
-</html>
+</html> 
