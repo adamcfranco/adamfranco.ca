@@ -6,62 +6,114 @@
 		<meta name="description" content="Description">
 		<meta name="author" content="Adam Franco">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link href="https://fonts.googleapis.com/css?family=Roboto|Raleway:200" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Raleway:200,300" rel="stylesheet"> 
 		<link rel="stylesheet" href="assets/css/styles.css">
-		<!--[if lt IE 9]>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-		<![endif]-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="assets/js/p5.min.js"></script>
 		<script src="assets/js/reactive-grid.js"></script>
 	</head>
 	<body>
 
-		<section id="work" class="active">
-			<div id="p5_loading">LOADING</div>
+		<header>
 			<div id="reactive-grid-wrapper"></div>
+			<div id="title">
+				<img src="assets/img/logo.png" width="256px" height="256px">
+				<h1>Adam Franco</h1>
+				<span class="subtitle">Programmer</span>
+			</div>		
+		</header>
+
+		<section id="work">
+			<div class="container">
+				<h2>Portfolio</h2>
+				<span>A collection of my previous work.</span>
+				<article class="item">
+					<div class="thumbnail"><img src="assets/img/work_dandy.png"></div>	
+					<div class="blurb">
+						<h3>Dandy</h3>
+						<small>UX/UI design, application development</small>
+						<p>Dandy is an online story downloader. Save your favorite fanfiction or original story for offline reading in a variety of popular formats such as EPUB, MOBI, PDF, and HTML.</p>
+						<a class="button" href="https://adamcfranco.github.io/dandy">Visit Website</a>
+					</div>
+				</article>
+				<article class="item">	
+					<div class="blurb">
+						<h3>Mind Media Games</h3>
+						<small>Branding, UX/UI design, WordPress theme customization</small>
+						<p>MindMediaGames is a small studio out of Edmonton, Alberta that strives to create quality games that do not lock progress behind a paywall.</p>
+						<a class="button" href="https://www.mindmediagames.com/">Visit Website</a>
+					</div>
+					<div class="thumbnail"><img src="assets/img/work_mindmediagames.png"></div>
+				</article>
+				<article class="item">
+					<div class="thumbnail"><img src="assets/img/work_irrigationspecialist.png"></div>	
+					<div class="blurb">
+						<h3>The Irrigation Specialist</h3>
+						<small>Branding refresh, UX/UI design, Shopify store theme</small>
+						<p>The Irrigation Specialist's goal is to provide sound irrigation products, services and advice. They take pride in doing the job neatly and properly the first time!</p>
+						<a class="button" href="https://www.irrigationspecialist.ca/">Visit Website</a>
+					</div>					
+				</article>
+			</div>
 		</section>
 
-		<section id="about">
-			<img src="assets/img/about.png">
+		<section id="about">			
 			<div class="container">
 				<h2>About</h2>
-				<p>My name is Adam Franco. I love to make things. My favorite thing to make is games, so I'm currently pursuing a career in game development as a programmer. Right now I'm a student at NAIT in Edmonton, Alberta, and will be pursuing a B.Sc. in Computer Science at the University of Alberta.</p>
-				<p>Previously I've done work as a graphic designer and web developer.</p>
-				<p>On this website you'll find a collection of the things I've worked on in school, or in my free time.</p>
-				<p>Thank you for visiting!</p>
+				<article class="item">
+					<div class="blurb">
+						<p>I love to make things. My favorite thing to make is games, so I'm currently pursuing a career in game development as a programmer. Right now I'm a Digital Media and IT student at the Northern Alberta Institute of Technology, and will be pursuing a B.Sc. in Computer Science at the University of Alberta.</p>
+						<p>My current skillset includes:</p>
+						<ul>
+							<li>HTML5, CSS3, JavaScript (ES6), and PHP for web applications</li>
+							<li>C# and Java</li>
+							<li>Game development in XNA/MonoGame and Unity</li>
+							<li>Proficiency with jQuery, SASS, WordPress, Shopify, Node.js, Processing &amp; P5.js, React, Bootstrap, NuGet, CefSharp, and more</li>
+						</ul>
+						<p>I've also done work as a graphic designer and web developer.</p>
+						<p>This website is a collection of the things I've worked on for clients, in school, or in my free time.</p>
+						<p>Thank you for visiting!</p>
+					</div>
+					<div class="thumbnail"><img src="assets/img/about.png"></div>
+				</article>			
 			</div>
 		</section>
 
 		<section id="contact">
 			<div class="container">
-				<h2>Contact</h2>
-				<form method="post" action="assets/contact.php" autocomplete="off">
+				<h2>Get in touch</h2>
+				<span id="contact-notifications"></span>
+				<form id="contact-form" method="post" action="assets/php/contact.php" autocomplete="off">
 					<fieldset>
-						<input type="text" name="f_name" id="f_name" required value="" onkeyup="this.setAttribute('value', this.value);">
-						<label for="f_name">Name (first and/or last)</label>
+						<input class="inputField" type="text" name="f_name" id="f_name" required value="" onkeyup="this.setAttribute('value', this.value);">
+						<label class="inputLabel" for="f_name">Name (first and/or last)</label>
 					</fieldset>
 					<fieldset>
-						<input type="email" name="f_email" id="f_email" required value="" onkeyup="this.setAttribute('value', this.value);">
-						<label for="f_email">Email</label>
+						<input class="inputField" type="email" name="f_email" id="f_email" required value="" onkeyup="this.setAttribute('value', this.value);">
+						<label class="inputLabel" for="f_email">Email</label>
 					</fieldset>
 					<fieldset>
-						<textarea name="f_message" id="f_message" rows="10" maxlength="2000" required value="" onkeyup="this.setAttribute('value', this.value);"></textarea>
-						<label for="f_message">Message (<span id="contact_charcount">2000</span> characters remaining)</label>
+						<textarea class="inputField" name="f_message" id="f_message" rows="10" maxlength="2000" required value="" onkeyup="this.setAttribute('value', this.value);"></textarea>
+						<label class="inputLabel" for="f_message">Message (<span id="contact_charcount">2000</span> characters remaining)</label>
 					</fieldset>
 					<fieldset>
-						<input type="submit" value="Send Message">
+						<input class="button large full-width" type="submit" value="Send Message">
 					</fieldset>
 				</form>
 			</div>
 		</section>
 
-		<nav id="navigation">
-			<ul>
-				<li><a data-section="work" class="active">WORK</a></li>
-				<li><a data-section="about">ABOUT</a></li>
-				<li><a data-section="contact">CONTACT</a></li>
-			</ul>
-		</nav>
+		<footer>
+			<img src="assets/img/logo.png">
+			<div>
+				<small>&copy; Adam Franco 2018</small>
+				<ul>
+					<li><a href="mailto:hello@adamfranco.ca"><small>Mail</small></a></li>
+					<li><a href="https://www.github.com/adamcfranco"><small>GitHub</small></a></li>
+					<li><a href="https://www.linkedin.com/in/adamcfranco"><small>LinkedIn</small></a></li>
+				</ul>
+			</div>
+		</footer>
 
 		<script src="assets/js/navigation.js"></script>
 		<script src="assets/js/contact.js"></script>

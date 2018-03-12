@@ -5,16 +5,11 @@
 */
 let nodes = [];
 let triangles = [];
-const LOGO_SIZE = 256;
-let parent, mouse, bounds, size, resolution, logo, logoPosition;
-function preload()
-{
-	logo = loadImage('assets/img/logo.png');
-}
+let parent, mouse, bounds, size, resolution;
 function setup()
 {
 	parent = document.getElementById("reactive-grid-wrapper");
-	let canvas = createCanvas(parent.clientWidth, parent.clientHeight);
+	let canvas = createCanvas(parent.offsetWidth, parent.offsetHeight);
 	canvas.parent("reactive-grid-wrapper");
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 	{
@@ -26,12 +21,10 @@ function setup()
 	}
 	GenerateTriangles();
 	bounds = new Rectangle(size / 2, size  / 2, parent.clientWidth + (resolution * 2), parent.clientHeight + (resolution * 2), Rectangle.PositionMode.CENTER);
-	logoPosition = createVector((size / 2) - (LOGO_SIZE / 2), (size / 2) - (LOGO_SIZE / 2));
 }
-
 function draw()
 {
-	background(12);
+	background(20);
 	let newW = (width / 2) - (size / 2);
 	let newH = (height / 2) - (size / 2);
 	mouse = createVector(mouseX - newW, mouseY - newH);
@@ -52,11 +45,10 @@ function draw()
 		triangle.update();
 		triangle.render();
 	}
-	image(logo, logoPosition.x, logoPosition.y, LOGO_SIZE, LOGO_SIZE);
 }
 function windowResized()
 {
-	resizeCanvas(parent.clientWidth, parent.clientHeight);
+	resizeCanvas(parent.offsetWidth, parent.offsetHeight);
 	bounds.resize(parent.clientWidth + (resolution * 2), parent.clientHeight + (resolution * 2));
 }
 function GenerateNodes(spacing, gridSize)
@@ -85,12 +77,12 @@ function GenerateTriangles()
 				nodes[i + 1][j + 1],
 				nodes[i + 1][j],
 				nodes[i][j],
-				Math.random() >= 0.95 ? randomInt(4, 40) : 0);
+				Math.random() >= 0.98 ? randomInt(4, 40) : 0);
 			let triangle2 = new Triangle(
 				nodes[i + 1][j + 1],
 				nodes[i][j + 1],
 				nodes[i][j],
-				Math.random() >= 0.95 ? randomInt(4, 40) : 0);
+				Math.random() <= 0.02 ? randomInt(4, 40) : 0);
 			triangles.push(triangle1);
 			triangles.push(triangle2);
 		}
