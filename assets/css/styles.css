@@ -2,6 +2,7 @@
 {
 	box-sizing: border-box;
 }
+
 html, body
 {
 	box-sizing: border-box;
@@ -14,10 +15,13 @@ html, body
 	font-size: 16px;
 	line-height: 1.5em;
 }
+
 html.modal-active, body.modal-active
 {
 	overflow: hidden;
+	padding-right: 16px;
 }
+
 h1, h2, h3
 {
 	font-family: 'Raleway', serif;
@@ -45,6 +49,16 @@ p
 {
 	max-width: 50em;
 }
+
+a:link:not(.button), a:visited:not(.button)
+{
+	color: rgb(0, 127, 255);
+	text-decoration: none;
+}
+a:link:not(.button):hover, a:visited:not(.button):hover
+{
+	color: rgb(255, 127, 0);
+}
 /*
  *
  * SPLASH
@@ -62,15 +76,16 @@ header
 	align-items: center;
 	color: white;
 }
+
 #reactive-grid-wrapper
 {
 	position: absolute;
-	z-index: 0;
 	left: 0;
 	top: 0;
 	right: 0;
 	bottom: 0;
 }
+
 #title
 {
 	position: relative;
@@ -87,6 +102,24 @@ header
 	font-weight: 200;
 	text-transform: uppercase;
 	font-size: 1.5em;
+	height: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@keyframes blink { 50% { background-color: transparent; } }
+.subtitle .caret
+{
+	display: inline-block;
+	width: 2px;
+	height: 1em;
+	background: white;
+	margin-left: 2px;
+}
+.subtitle .caret.idle
+{
+	animation: blink .5s step-end infinite alternate;
 }
 /*
  *
@@ -352,13 +385,16 @@ footer ul li a:hover
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, .25);
+	background: rgba(255, 255, 255, .75);
 	display: none;
 	padding: 0;
+	transform: scale(0);
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 .modal.active
 {
 	display: block;
+	transform: scale(1);
 }
 .modal .content
 {
@@ -373,7 +409,7 @@ footer ul li a:hover
 	height: auto;
 	margin: 4em auto;
 	position: relative;
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .modal .info
 {
@@ -382,26 +418,27 @@ footer ul li a:hover
 .modal .close
 {
 	display: block;
-	width: 48px;
-	height: 48px;
+	width: 64px;
+	height: 64px;
 	padding: 0;
 	margin: 0;
 	border: none;
 	background-image: url("../img/icons/cross.png");
-	background-color: white;
+	background-color: rgb(0, 127, 255);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-position: center;
 	cursor: pointer;
-	position: absolute;
-	z-index: 3;
-	right: -48px;
-	top: 0;
+	position: fixed;
+	bottom: 2em;
+	right: 2em;
+	z-index: 5;
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	border-radius: 100%;
 }
 .modal .close:hover
 {
-	background-color: rgb(240, 240, 240);
+	background-color: rgb(0, 100, 228);
 }
 
 /*
@@ -411,9 +448,11 @@ footer ul li a:hover
  */
 .slideshow
 {
-	position: relative;
-	height: calc((100vw - 8em) / (16/9));
-	max-height: calc(1000px / (16/9));
+	width: 100%;
+	height: auto;
+	max-height: auto;
+	padding-bottom: 50px;
+	border-bottom: 1px solid rgb(220, 220, 220);
 }
 .slideshow img
 {
@@ -432,32 +471,23 @@ footer ul li a:hover
 .slideshow .navbutton
 {
 	display: block;
-	width: 48px;
-	height: 128px;
-
+	width: 50%;
+	height: 50px;
 	padding: 0;
 	margin: 0;
-
 	border: none;
 	background-color: white;
 	background-repeat: no-repeat;
-	background-size: auto 64px;
+	background-size: auto 32px;
 	background-position: center;
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-
 	cursor: pointer;
-
 	font-family: inherit;
 	font-size: 2em;
-
-	position: absolute;
-	z-index: 3;
-	top: 50%;
-	transform: translateY(-50%);
+	float: left;	
 }
 .slideshow .navbutton:hover
 {
-	background-color: rgb(240, 240, 240);
+	background-color: rgb(220, 220, 220);
 }
 .slideshow .navbutton.left
 {
@@ -474,19 +504,23 @@ footer ul li a:hover
  * MEDIA QUERIES
  *
  */
-@media only screen and (max-width: 400px)
+@media only screen and (max-width: 640px)
 {
-	.slideshow
+
+	.modal .content
 	{
-		display: none;
+		padding: 0;
 	}
+
+	.modal .container
+	{
+		margin: 0;
+	}
+	
+
 }
 @media only screen and (max-width: 800px)
 {
-	.slideshow
-	{
-		min-height: 128px;
-	}
 	.thumbnail
 	{
 		display: none;

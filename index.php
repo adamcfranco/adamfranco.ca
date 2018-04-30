@@ -2,13 +2,14 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Adam Franco</title>
-		<meta name="description" content="Description">
+		<title>Adam Franco, Game Programmer</title>
+		<meta name="description" content="Hi! My name is Adam, and this is my online portfolio.">
 		<meta name="author" content="Adam Franco">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Raleway:200,300" rel="stylesheet"> 
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,700|Raleway:200,300" rel="stylesheet"> 
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<script src="assets/js/p5.min.js"></script>
+		<script src="assets/js/delaunay.js"></script>
 		<script src="assets/js/reactive-grid.js"></script>
 	</head>
 	<body>
@@ -18,7 +19,10 @@
 			<div id="title">
 				<img src="assets/img/logo.png" width="256px" height="256px">
 				<h1>Adam Franco</h1>
-				<span class="subtitle">Game Programmer</span>
+				<div class="subtitle">
+					<span class="txt-rotate" data-period="4000" data-rotate='[ "Game Programmer.", "Application Developer.", "Creative Coder." ]'></span>
+					<span class="caret"></span>
+				</div>
 			</div>
 		</header>
 
@@ -26,21 +30,21 @@
 			<div class="container">
 				<h2>Portfolio</h2>
 				<span>A collection of my previous work.</span>
-				<article class="item">
+				<!--<article class="item">
 					<div class="thumbnail"><img src="assets/img/work_gameplaceholder.png"></div>	
 					<div class="blurb">
-						<h3>AR Pirate Scavenger Hunt</h3>
-						<small>Lead Programmer, Game Development</small>
-						<p>I led a small team of programmers to create an augmented reality scavenger hunt using the Microsoft HoloLens for the <a href="https://www.glenrosefoundation.com/">Glenrose Rehabilitation Hospital Foundation</a>. Players walk around and find hidden AR cards and collect the items that appear from them. The game was made using Unity.</p>
-						<a class="button" href="/scavenger-hunt">More Info</a>
+						<h3>HoloLens Pirate Scavenger Hunt</h3>
+						<small>Lead programmer, research &amp; development</small>
+						<p>I led a small team of programmers to create a pirate-themed augmented reality scavenger hunt using the Microsoft HoloLens for the <a href="//www.glenrosefoundation.com/">Glenrose Rehabilitation Hospital Foundation</a>. Players walk around and find hidden AR cards and collect the items that appear from them. Made with Unity.</p>
+						<a class="button" href="/scavenger-hunt" title="HoloLens Scavenger Hunt">More Info</a>
 					</div>
-				</article>
+				</article>-->
 				<article class="item">	
 					<div class="blurb">
 						<h3>The Ancient Trials</h3>
-						<small>Game Design &amp; Development</small>
-						<p>This is a prototype game I made for my final project in Game Programming Essentials at NAIT. It is a puzzle platformer that uses the rune abilities found in <i>The Legend of Zelda: Breath of the Wild</i>. It is made using MonoGame.</p>
-						<a class="button" href="/the-ancient-trials">More Info</a>
+						<small>Game design &amp; development</small>
+						<p>This is a prototype game I made for my final project in Game Programming Essentials at NAIT. It is a puzzle platformer that uses the rune abilities found in <i>The Legend of Zelda: Breath of the Wild</i>. Made with MonoGame. <strong>Under development</strong>.</p>
+						<a class="button" href="/the-ancient-trials" title="The Ancient Trials">More Info</a>
 					</div>
 					<div class="thumbnail"><img src="assets/img/portfolio/the-ancient-trials.png"></div>	
 				</article>
@@ -49,8 +53,8 @@
 					<div class="blurb">
 						<h3>Dandy</h3>
 						<small>UX/UI design, application development</small>
-						<p>Dandy is an online story downloader. Save your favorite fanfiction or original story for offline reading in a variety of popular formats such as EPUB, MOBI, PDF, and HTML.</p>
-						<a class="button" href="https://adamcfranco.github.io/dandy">Visit Website</a>
+						<p>Dandy is an online story downloader. Save your favorite fanfiction or original story for offline reading in a variety of popular formats such as EPUB, MOBI, PDF, and HTML. <strong>Under development</strong>.</p>
+						<a class="button" href="//adamcfranco.github.io/dandy">Visit Website</a>
 					</div>
 				</article>
 				<article class="item">	
@@ -58,7 +62,7 @@
 						<h3>Mind Media Games</h3>
 						<small>Branding, UX/UI design, WordPress theme customization</small>
 						<p>MindMediaGames is a small studio out of Edmonton, Alberta that strives to create quality games that do not lock progress behind a paywall.</p>
-						<a class="button" href="https://www.mindmediagames.com/">Visit Website</a>
+						<a class="button" href="//www.mindmediagames.com/" title="Mind Media Games">Visit Website</a>
 					</div>
 					<div class="thumbnail"><img src="assets/img/portfolio/mind-media-games.png"></div>
 				</article>
@@ -68,7 +72,7 @@
 						<h3>The Irrigation Specialist</h3>
 						<small>Branding refresh, UX/UI design, Shopify store theme</small>
 						<p>The Irrigation Specialist's goal is to provide sound irrigation products, services and advice. They take pride in doing the job neatly and properly the first time!</p>
-						<a class="button" href="https://www.irrigationspecialist.ca/">Visit Website</a>
+						<a class="button" href="//www.irrigationspecialist.ca/" title="The Irrigation Specialist">Visit Website</a>
 					</div>					
 				</article>
 			</div>
@@ -121,26 +125,26 @@
 		<section id="the-ancient-trials" class="modal">
 			<div class="content">
 				<div class="container">
-					<button class="close"></button>
+					<a class="close" href="/"></a>
 					<div class="slideshow" id="slideshow_ancient-trials">
-						<button class="navbutton left"></button>
-						<button class="navbutton right"></button>
 						<img src="assets/img/the-ancient-trials/snapshot1.png" class="active">
 						<img src="assets/img/the-ancient-trials/snapshot2.png">
 						<img src="assets/img/the-ancient-trials/snapshot3.png">
 						<img src="assets/img/the-ancient-trials/snapshot4.png">
 						<img src="assets/img/the-ancient-trials/snapshot5.png">
 						<img src="assets/img/the-ancient-trials/snapshot6.png">
+						<button class="navbutton left"></button>
+						<button class="navbutton right"></button>
 					</div>
 					<div class="info">
 						<h2>The Ancient Trials</h2>
-						<small>Game Design &amp; Development</small>
+						<small>Game design &amp; development</small>
 						<p>This is a prototype game I made for my final project in Game Programming Essentials at NAIT. It is a puzzle platformer that uses the rune abilities found in <i>The Legend of Zelda: Breath of the Wild</i>. It is made using MonoGame.</p>
 						<p>The game is fairly simple in its current state; I only implemented one skill, one level, and one enemy for the demonstration. I hope to eventually add the rest of the skills and a few more levels and enemies!</p>
 						<p>This project is important to me because it was my first foray into a skill system, and I built all of the components myself. Some features I'm especially proud of:</p>
 						<ul>
 							<li><strong>Parsing Tiled Maps</strong><br>
-							I created a system for taking maps generated by <a href="http://www.mapeditor.org/">Tiled Map Editor</a> and parsing correctly, including the ability to set backgrounds, use layers, and multiple source spritesheets.</li>
+							I created a system for taking maps generated by <a href="//www.mapeditor.org/">Tiled Map Editor</a> and parsing correctly, including the ability to set backgrounds, use layers, and multiple source spritesheets.</li>
 							<li><strong>Screen States/Screen Manager</strong><br>
 							Ability to create and render individual scenes (menus, levels, etc.), as well as layer scenes on top of each other (pause menu, skill select, dialog system)</li>
 							<li><strong>Dialog System</strong><br>
@@ -152,25 +156,48 @@
 							<li><strong>Component System</strong><br>
 							I build myself a small framework for handling input, collisions, sprites, game objects, cameras, collectables, and UI</li>
 						</ul>
-						<p>You can download the latest build <a href="https://adamfranco.ca/download/the-ancient-trials.zip">here</a>.</p>
+						<p>You can download the latest build <a href="//adamfranco.ca/download/the-ancient-trials.zip">here</a>.</p>
 					</div>
 				</div>
 			</div>
 		</section>
 
+		<!--<section id="scavenger-hunt" class="modal">
+			<div class="content">
+				<div class="container">
+					<a class="close" href="/"></a>
+					<div class="slideshow" id="slideshow_scavenger-hunt">
+						<button class="navbutton left"></button>
+						<button class="navbutton right"></button>
+						<img src="assets/img/the-ancient-trials/snapshot1.png" class="active">
+						<img src="assets/img/the-ancient-trials/snapshot2.png">
+						<img src="assets/img/the-ancient-trials/snapshot3.png">
+						<img src="assets/img/the-ancient-trials/snapshot4.png">
+						<img src="assets/img/the-ancient-trials/snapshot5.png">
+						<img src="assets/img/the-ancient-trials/snapshot6.png">
+					</div>
+					<div class="info">
+						<h2>HoloLens Scavenger Hunt</h2>
+						<small>Lead programmer, research &amp; development</small>
+
+					</div>
+				</div>
+			</div>
+		</section>-->
+
 		<footer>
 			<img src="assets/img/logo.png">
 			<div>
-				<small>&copy; Adam Franco 2018</small>
+				<small>&copy; Adam Franco <?= date("Y") ?></small>
 				<ul>
 					<li><a href="mailto:hello@adamfranco.ca"><small>Mail</small></a></li>
-					<li><a href="https://www.github.com/adamcfranco"><small>GitHub</small></a></li>
-					<li><a href="https://www.linkedin.com/in/adamcfranco"><small>LinkedIn</small></a></li>
+					<li><a href="//www.github.com/adamcfranco"><small>GitHub</small></a></li>
+					<li><a href="//www.linkedin.com/in/adamcfranco"><small>LinkedIn</small></a></li>
 				</ul>
 			</div>
 		</footer>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="assets/js/interface.js"></script>
 
 	</body>

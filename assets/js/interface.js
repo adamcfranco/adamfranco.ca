@@ -1,5 +1,6 @@
 let modals;
-function setCurrentPage(url)
+let defaultTitle = "Adam Franco, Game Programmer";
+function SetCurrentPage(url)
 {
 	for(let modal of modals)
 	{
@@ -19,11 +20,6 @@ function setCurrentPage(url)
 				found = true;
 			}
 		}
-		if (!found)
-		{
-			console.log("That URL doesn't exist.");
-			window.history.back();
-		}
 	}
 }
 (() =>
@@ -34,19 +30,21 @@ function setCurrentPage(url)
 		let link = $(event.target);
 		if (link.attr('href'))
 		{
-			if (!link.attr('href').includes("http"))
+			if (!link.attr('href').includes("//"))
 			{
 				event.preventDefault();
 				let targetUrl = link.attr('href');
 				let targetTitle = link.attr('title');
-				window.history.pushState({url: "" + targetUrl + ""}, targetTitle, targetUrl);
-				setCurrentPage(targetUrl);
+				console.log(targetTitle);
+				document.title = targetTitle == null ? defaultTitle : targetTitle + " | " + defaultTitle;
+				window.history.pushState({url: targetUrl }, document.title, targetUrl);
+				SetCurrentPage(targetUrl);
 			}
 		}
 	});
 	window.onpopstate = (event) =>
 	{
-		setCurrentPage(event.state ? event.state.url : null);
+		SetCurrentPage(event.state ? event.state.url : null);
 	};
 	/*
 	 *
@@ -90,15 +88,7 @@ function setCurrentPage(url)
 			}
 		});
 	});
-	/*
-	 *
-	 * MODAL
-	 *
-	 */
-	$(".modal .close").click((event) =>
-	{
-		window.history.back();
-	});
+
 	/*
 	 *
 	 * IMAGE SLIDESHOW
@@ -124,4 +114,58 @@ function setCurrentPage(url)
 		$(images[nextIndex]).addClass("active");
 	});
 
+	SetCurrentPage(window.location.href);
+
 })();
+
+var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = this.txt;
+
+  var that = this;
+  var delta = 150 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+};

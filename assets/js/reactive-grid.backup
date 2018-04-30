@@ -9,20 +9,20 @@ let reactiveGrid = function(sketch)
 
 	let nodes = [];
 	let triangles = [];
-	let points = [];
 	let parent, mouse, bounds, size, resolution, colorTriangle, colorLine, colorHover;
 
 	sketch.setup = function()
 	{
 		colorTriangle = sketch.color(20);
 		colorLine = sketch.color(30);
-		colorHover = sketch.color(0, 127, 255);
+		colorHover = sketch.color(200);
 		parent = document.getElementById("reactive-grid-wrapper");
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) size = 1920;
-		else size = 3840;
-		sketch.generatePoints();
+		
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) sketch.generateNodes(128, 1920);
+		else sketch.generateNodes(64, 3840);
+		
 		sketch.generateTriangles();
-		bounds = new Rectangle(size / 2, size  / 2, parent.clientWidth, parent.clientHeight, Rectangle.PositionMode.CENTER);
+		bounds = new Rectangle(size / 2, size  / 2, parent.clientWidth + (resolution * 2), parent.clientHeight + (resolution * 2), Rectangle.PositionMode.CENTER);
 		sketch.windowResized();
 	};
 
@@ -33,66 +33,74 @@ let reactiveGrid = function(sketch)
 		let newH = (sketch.height / 2) - (size / 2);
 		mouse = sketch.createVector(sketch.mouseX - newW, sketch.mouseY - newH);
 		sketch.translate(newW, newH);
-
-		nodes.forEach(node =>
+		for (let i = 0; i < nodes.length; i++)
 		{
-			if (bounds.contains(node.initial)) node.update();
-		});
-
-		triangles.forEach(triangle =>
-		{
-			if (!triangle.outsideBounds(bounds))
+			for (let j = 0; j < nodes[i].length; j++)
 			{
-				triangle.update();
-				triangle.render();
+				let node = nodes[i][j];
+				if (!bounds.contains(node.initial)) continue;
+				nodes[i][j].update();
 			}
-		});
-
+		}
+		for (let i = 0; i < triangles.length; i++)
+		{
+			let triangle = triangles[i];
+			if (triangle.outsideBounds(bounds)) continue;
+			triangle.update();
+			triangle.render();
+		}
 	};
 
 	sketch.windowResized = function()
 	{
 		sketch.resizeCanvas(parent.offsetWidth, parent.offsetHeight);
-		bounds.resize(parent.clientWidth, parent.clientHeight);
+		bounds.resize(parent.clientWidth + (resolution * 2), parent.clientHeight + (resolution * 2));
 	};
 
-	sketch.generatePoints = function() 
+	sketch.generateNodes = function(spacing, gridSize) 
 	{
-		points = [];
-		points.push([0, 0]);
-		points.push([size, 0]);
-		points.push([0, size]);
-		points.push([size, size]);
-		let n = Math.floor(size / 100 * size / 100);
-		for (let i = 0; i < n; i++)
+		resolution = spacing;
+		size = (gridSize + (spacing * 2));
+		let gridRC  = size / spacing;
+		for (let x = 0; x <= gridRC; x++)
 		{
-			let x = sketch.getRandomInt(0, size);
-			let y = sketch.getRandomInt(0, size);
-			points.push([x, y]);
+			nodes[x] = [];
+			for (let y = 0; y <= gridRC; y++)
+			{
+				let nodeX = (x * spacing) - ((Math.random() * 2) * (Math.random() * (spacing / 2.5)));
+				let nodeY = (y * spacing) - ((Math.random() * -2) * (Math.random() * (spacing / 2.5)));
+				nodes[x][y] = new Node(nodeX, nodeY);
+			}		
 		}
 	};
 
 	sketch.generateTriangles = function()
 	{
-		triangles = [];
-		nodes = [];
-		let delaunay = Delaunay.triangulate(points);
-		for (let i = 0; i < delaunay.length; i += 3)
+		for (let i = 0; i < nodes.length - 1; i++)
 		{
-			let n1 = new Node(points[delaunay[i]][0], points[delaunay[i]][1]);
-			let n2 = new Node(points[delaunay[i + 1]][0], points[delaunay[i + 1]][1]);
-			let n3 = new Node(points[delaunay[i + 2]][0], points[delaunay[i + 2]][1]);
-			let color = Math.random() <= 0.02 ? colorLine : colorTriangle;
-			triangles.push(new Triangle(n1, n2, n3, color));
-			nodes.push(n1);
-			nodes.push(n2);
-			nodes.push(n3);
+			for(let j = 0; j < nodes[i].length - 1; j++)
+			{
+				let triangle1 = new Triangle(
+					nodes[i + 1][j + 1],
+					nodes[i + 1][j],
+					nodes[i][j],
+					Math.random() >= 0.98 ? colorLine : colorTriangle);
+				let triangle2 = new Triangle(
+					nodes[i + 1][j + 1],
+					nodes[i][j + 1],
+					nodes[i][j],
+					Math.random() <= 0.02 ? colorLine : colorTriangle);
+				triangles.push(triangle1);
+				triangles.push(triangle2);
+			}
 		}
 	};
 
-	sketch.getRandomInt = function(min, max)
+	sketch.randomInt = function(min, max)
 	{
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min;
 	};
 
 	class Node
@@ -170,7 +178,6 @@ let reactiveGrid = function(sketch)
 		}
 		render()
 		{
-			sketch.push();
 			switch (this.positionMode)
 			{
 				case Rectangle.PositionMode.CORNER:
@@ -190,7 +197,6 @@ let reactiveGrid = function(sketch)
 					break;
 				}
 			}
-			sketch.pop();
 		}
 		resize(width, height)
 		{
@@ -210,24 +216,23 @@ let reactiveGrid = function(sketch)
 			this.n0 = node0;
 			this.n1 = node1;
 			this.n2 = node2;
+			this.fill = false;
+			this.interactRadius = 50;
 			
 			this.startColor = startColor;
 			this.currentColor = startColor;
-			this.targetColor = startColor;
 		}
 		update()
 		{
-			this.targetColor = this.contains(mouse) ? colorHover : this.startColor;
+			this.fill = this.contains(mouse);
+			this.currentColor = sketch.lerpColor(this.currentColor, this.fill ? colorHover : this.startColor, 0.5);
 		}
 		render()
 		{
-			sketch.push();	
-			this.currentColor = sketch.lerpColor(this.currentColor, this.targetColor, 0.5);
+			
 			sketch.fill(this.currentColor);
-			sketch.strokeWeight(0.8);
 			sketch.stroke(colorLine);
 			sketch.triangle(this.n0.p.x, this.n0.p.y, this.n1.p.x, this.n1.p.y, this.n2.p.x, this.n2.p.y);
-			sketch.pop();
 		}
 		contains(point)
 		{
