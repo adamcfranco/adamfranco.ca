@@ -11,7 +11,7 @@
 		<script src="assets/js/p5.min.js"></script>
 		<script src="assets/js/delaunay.js"></script>
 		<script src="assets/js/reactive-grid.js"></script>
-		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<!-- <script src='//www.google.com/recaptcha/api.js'></script> -->
 	</head>
 	<body>
 
@@ -68,7 +68,7 @@
 						<h3>The Irrigation Specialist</h3>
 						<small>Branding refresh, UX/UI design, Shopify store theme</small>
 						<p>The Irrigation Specialist's goal is to provide sound irrigation products, services and advice. They take pride in doing the job neatly and properly the first time!</p>
-						<a class="button" href="http://www.irrigationspecialist.ca/" title="The Irrigation Specialist">Visit Website</a>
+						<a class="button" href="//www.irrigationspecialist.ca/" title="The Irrigation Specialist">Visit Website</a>
 					</div>
 					<div class="thumbnail"><img src="assets/img/portfolio/the-irrigation-specialist.png"></div>				
 				</article>
@@ -131,7 +131,7 @@
 				<h2>Get in touch</h2>
 				<strong>Right now I'm not looking for any work, but I'd still love to answer your question!</strong>
 				<span id="contact-notifications"></span>
-				<form id="contact-form" method="post" action="assets/php/contact.php" autocomplete="off" enctype="multipart/form-data">
+				<form id="contact-form" method="post" autocomplete="off" enctype="multipart/form-data" name="contact" netlify>
 					<fieldset>
 						<input class="inputField" type="text" name="f_name" id="f_name" required value="" onkeyup="this.setAttribute('value', this.value);">
 						<label class="inputLabel" for="f_name">Name (first and/or last)</label>
@@ -145,7 +145,8 @@
 						<label class="inputLabel" for="f_message">Message (<span id="contact_charcount">2000</span> characters remaining)</label>
 					</fieldset>
 					<fieldset>
-						<div class="g-recaptcha" data-sitekey="6LfB01oUAAAAAPl0FIKum733UpXo-Za0LdHRBjlV"></div>
+						<!--<div class="g-recaptcha" data-sitekey="6LfB01oUAAAAAPl0FIKum733UpXo-Za0LdHRBjlV"></div>-->
+						<div data-netlify-recaptcha="true"></div>
 					</fieldset>
 					<fieldset>
 						<button class="button large full-width" type="submit"><i class="i send-message"></i>Send Message</button>
@@ -195,7 +196,7 @@
 							I build myself a small framework for handling input, collisions, sprites, game objects, cameras, collectables, and UI</li>
 						</ul>
 						<p>Download the latest build:</p>
-						<iframe src="https://itch.io/embed/255253" frameborder="0" width="100%" height="167"></iframe>
+						<iframe src="//itch.io/embed/255253" frameborder="0" width="100%" height="167"></iframe>
 					</div>
 				</div>
 			</div>
@@ -226,7 +227,7 @@
 						</ul>
 						<p>I wanted to do more with this project - more debugging, extra levels for arcade mode, better walk cycles, special attacks, and a wider variety of enemies, but unfortunately did not have enough time.</p>
 						<p>You can check out the most current build below. Be warned, there may be bugs!</p>
-						<iframe src="https://itch.io/embed/257806" width="100%" height="167" frameborder="0"></iframe>
+						<iframe src="//itch.io/embed/257806" width="100%" height="167" frameborder="0"></iframe>
 					</div>
 				</div>
 			</div>
