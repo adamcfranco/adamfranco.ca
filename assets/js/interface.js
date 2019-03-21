@@ -28,20 +28,13 @@ let modals;
 			{
 				$(notifications).removeClass("error");
 				$(notifications).addClass("success");
-				$(notifications).text(response);
+				$(notifications).text("Thank you! Your message has been sent.");
 				$(form).remove();
 			}).fail((data) =>
 			{
 				$(notifications).removeClass("success");
 				$(notifications).addClass("error");
-				if (data.responseText !== '')
-				{
-					$(notifications).text(data.responseText);
-				}
-				else
-				{
-					$(notifications).text("Something went wrong and your message could not be sent.");
-				}
+				$(notifications).text("Something went wrong and your message could not be sent.");
 			});
 	});
 	/*
