@@ -1,4 +1,5 @@
 <ifModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^(other)($|/) - [L]
   RewriteRule ^([^/\.]+)/?$ index.php [L]
 </ifModule>

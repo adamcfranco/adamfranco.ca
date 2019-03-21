@@ -1,44 +1,54 @@
 /*	
 	Reactive Grid
-	Version 4.0
+	Version 5.0
 	Adam Franco (www.adamfranco.ca)
 */
 
-let reactiveGrid = function(sketch)
+let reactiveGrid = function (sketch)
 {
 
 	let nodes = [];
 	let triangles = [];
 	let points = [];
-	let parent, mouse, bounds, size, resolution, colorTriangle, colorLine, colorHover;
+	let parent, mouse, bounds, size, resolution, colorTriangle, colorLine, colorHover, resizeTimer, deltaTime, prevTime;
 
-	sketch.setup = function()
+	sketch.setup = function ()
 	{
 		colorTriangle = sketch.color(20);
-		colorLine = sketch.color(30);
+		colorLine = sketch.color(40);
 		colorHover = sketch.color(0, 127, 255);
 		parent = document.getElementById("reactive-grid-wrapper");
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) size = 1920;
+		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) 
+		{
+			colorTriangle = sketch.color(0);
+			colorLine = sketch.color(50);
+			size = 1920;
+		}
 		else size = 3840;
 		sketch.generatePoints();
 		sketch.generateTriangles();
-		bounds = new Rectangle(size / 2, size  / 2, parent.clientWidth, parent.clientHeight, Rectangle.PositionMode.CENTER);
+		bounds = new Rectangle(size / 2, size / 2, parent.clientWidth, parent.clientHeight, Rectangle.PositionMode.CENTER);
 		sketch.windowResized();
+		resizeTimer = 0;
+		prevTime = Date.now();
+		deltaTime = 0;
+		parent.classList.remove("hidden");
 	};
 
-	sketch.draw = function()
+	sketch.draw = function ()
 	{
+		let time = Date.now();
+		deltaTime = time - prevTime;
+		prevTime = time;
 		sketch.background(20);
 		let newW = (sketch.width / 2) - (size / 2);
 		let newH = (sketch.height / 2) - (size / 2);
 		mouse = sketch.createVector(sketch.mouseX - newW, sketch.mouseY - newH);
 		sketch.translate(newW, newH);
-
 		nodes.forEach(node =>
 		{
 			if (bounds.contains(node.initial)) node.update();
 		});
-
 		triangles.forEach(triangle =>
 		{
 			if (!triangle.outsideBounds(bounds))
@@ -47,16 +57,24 @@ let reactiveGrid = function(sketch)
 				triangle.render();
 			}
 		});
-
+		if (resizeTimer >= 2000)
+		{
+			resizeTimer = 0;
+			sketch.windowResized();
+		}
+		else
+		{
+			resizeTimer += deltaTime;
+		}
 	};
 
-	sketch.windowResized = function()
+	sketch.windowResized = function ()
 	{
 		sketch.resizeCanvas(parent.offsetWidth, parent.offsetHeight);
 		bounds.resize(parent.clientWidth, parent.clientHeight);
 	};
 
-	sketch.generatePoints = function() 
+	sketch.generatePoints = function () 
 	{
 		points = [];
 		points.push([0, 0]);
@@ -72,7 +90,7 @@ let reactiveGrid = function(sketch)
 		}
 	};
 
-	sketch.generateTriangles = function()
+	sketch.generateTriangles = function ()
 	{
 		triangles = [];
 		nodes = [];
@@ -90,7 +108,7 @@ let reactiveGrid = function(sketch)
 		}
 	};
 
-	sketch.getRandomInt = function(min, max)
+	sketch.getRandomInt = function (min, max)
 	{
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
@@ -120,7 +138,7 @@ let reactiveGrid = function(sketch)
 			this.p = this.position;
 		}
 		limitDistance()
-		{	
+		{
 			let distance = mouse.dist(this.initial);
 			if (distance > this.maxDistance)
 			{
@@ -148,25 +166,25 @@ let reactiveGrid = function(sketch)
 			switch (this.positionMode)
 			{
 				case Rectangle.PositionMode.CORNER:
-				{
-					let minX = this.position.x;
-					let maxX = this.position.x + this.size.x;
-					let minY = this.position.y;
-					let maxY = this.position.y + this.size.y;
-					return (point.x >= minX && point.x <= maxX) && (point.y >= minY && point.y <= maxY);
-					break;
-				}
+					{
+						let minX = this.position.x;
+						let maxX = this.position.x + this.size.x;
+						let minY = this.position.y;
+						let maxY = this.position.y + this.size.y;
+						return (point.x >= minX && point.x <= maxX) && (point.y >= minY && point.y <= maxY);
+						break;
+					}
 				case Rectangle.PositionMode.CENTER:
-				{
-					let minX = this.position.x - (this.size.x / 2);
-					let maxX = this.position.x + (this.size.x / 2);
-					let minY = this.position.y - (this.size.y / 2);
-					let maxY = this.position.y + (this.size.y / 2);
-					return (point.x >= minX && point.x <= maxX) && (point.y >= minY && point.y <= maxY);
-					break;
-				}
+					{
+						let minX = this.position.x - (this.size.x / 2);
+						let maxX = this.position.x + (this.size.x / 2);
+						let minY = this.position.y - (this.size.y / 2);
+						let maxY = this.position.y + (this.size.y / 2);
+						return (point.x >= minX && point.x <= maxX) && (point.y >= minY && point.y <= maxY);
+						break;
+					}
 			}
-			
+
 		}
 		render()
 		{
@@ -174,21 +192,21 @@ let reactiveGrid = function(sketch)
 			switch (this.positionMode)
 			{
 				case Rectangle.PositionMode.CORNER:
-				{
-					sketch.noFill();
-					sketch.stroke(255, 0, 0);
-					sketch.strokeWeight(1);
-					sketch.rect(this.position.x, this.position.y, this.size.x, this.size.y);
-					break;
-				}
+					{
+						sketch.noFill();
+						sketch.stroke(255, 0, 0);
+						sketch.strokeWeight(1);
+						sketch.rect(this.position.x, this.position.y, this.size.x, this.size.y);
+						break;
+					}
 				case Rectangle.PositionMode.CENTER:
-				{
-					sketch.noFill();
-					sketch.stroke(255, 0, 0);
-					sketch.strokeWeight(1);
-					sketch.rect(this.position.x - (this.size.x / 2), this.position.y - (this.size.y / 2), this.size.x, this.size.y);
-					break;
-				}
+					{
+						sketch.noFill();
+						sketch.stroke(255, 0, 0);
+						sketch.strokeWeight(1);
+						sketch.rect(this.position.x - (this.size.x / 2), this.position.y - (this.size.y / 2), this.size.x, this.size.y);
+						break;
+					}
 			}
 			sketch.pop();
 		}
@@ -199,8 +217,8 @@ let reactiveGrid = function(sketch)
 	};
 
 	Rectangle.PositionMode = {
-		CORNER : 0,
-		CENTER : 1	
+		CORNER: 0,
+		CENTER: 1
 	};
 
 	class Triangle
@@ -210,7 +228,7 @@ let reactiveGrid = function(sketch)
 			this.n0 = node0;
 			this.n1 = node1;
 			this.n2 = node2;
-			
+
 			this.startColor = startColor;
 			this.currentColor = startColor;
 			this.targetColor = startColor;
@@ -221,7 +239,7 @@ let reactiveGrid = function(sketch)
 		}
 		render()
 		{
-			sketch.push();	
+			sketch.push();
 			this.currentColor = sketch.lerpColor(this.currentColor, this.targetColor, 0.5);
 			sketch.fill(this.currentColor);
 			sketch.strokeWeight(0.8);
@@ -254,4 +272,4 @@ let reactiveGrid = function(sketch)
 
 };
 
-let grid = new p5(reactiveGrid,'reactive-grid-wrapper');
+var grid = new p5(reactiveGrid, 'reactive-grid-wrapper');
