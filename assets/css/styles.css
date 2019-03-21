@@ -391,27 +391,31 @@ footer small, footer img
 {
 	opacity: 0.5;
 }
-footer ul
+
+footer .linkout {
+	justify-content: center;
+}
+.linkout
 {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	display: flex;
-	justify-content: center;
+	
 }
-footer ul li
+.linkout li
 {
 	margin-right: 1em;
 }
-footer ul > :last-child
+.linkout > :last-child
 {
 	margin-right: 0;
 }
-footer ul li a
+.linkout li a
 {
 	color: white;
 }
-footer ul li a:hover
+.linkout li a:hover
 {
 	text-decoration: none;
 }
