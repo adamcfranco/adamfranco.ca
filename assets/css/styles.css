@@ -96,6 +96,14 @@ a:link:not(.button):hover, a:visited:not(.button):hover
 	color:rgb(100, 100, 100);
 }
 
+.itchioembed
+{
+	display: flex;
+	width: 100%;
+	height: 167px;
+	justify-content: center;
+}
+
 /*
  *
  * SPLASH
