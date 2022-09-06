@@ -227,12 +227,14 @@ section .container
 	align-items: center;
 	border-radius: 1em;
 	overflow: hidden;
+	max-height: 18em;
 }
 .thumbnail img
 {
+	object-fit: contain;
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 100%;
 }
 /* ABOUT */
 #about
@@ -257,6 +259,7 @@ section .container
 }
 #about img
 {
+	height: auto;
 	border-radius: 100%;
 }
 /* CONTACT */
